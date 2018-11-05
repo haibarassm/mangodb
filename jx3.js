@@ -34,3 +34,14 @@ db.jx3.save(j)
 db.jx3.update({"_id": ObjectId("5bd928b706c731a4a068ebd5")},{"$addToSet":{"content":{"name":"陆迟墨","职业":"明教"}}})
 // 适用于大量移动或经常打乱数据,用这样的方式提高复用率 但是实际操作之后collectionName说没有定义
 db.runCommand({"collMod":collectionName,"usePowerOf2Sizes":true})
+// 剔除查询结果中的_id,输出name和content
+db.jx3.find({},{"_id":0,"name":1,"content":1})
+// 查询里的比较
+$lt <
+$lte <=
+$gt  >
+$gte >=
+$ne 不等于
+// 匹配
+$in 返回与数组中某一个条件匹配的文档
+$nin 返回与数组中所有条件都不匹配的文档
