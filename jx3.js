@@ -42,6 +42,34 @@ $lte <=
 $gt  >
 $gte >=
 $ne 不等于
-// 匹配
-$in 返回与数组中某一个条件匹配的文档
-$nin 返回与数组中所有条件都不匹配的文档
+db.user.update({"_id" : ObjectId("5bd96dad8882b26ee713dc74")},{"$set":{"age":22}})
+db.user.find({"age":{"$lt":30,"$gt":20}})
+// in
+// $in 返回与数组中某一个条件匹配的文档(一个键的多个值)
+// $nin 返回与数组中所有条件都不匹配的文档
+db.jx3.find({"content.name":{"$in":["叶雪风"]}})
+// or
+// $or 返回与数组中某一个条件匹配的文档，可嵌套$in实现多个键的多个值
+db.raffle.find({"$or":[{"ticket_no":{"$in":[725,542,390]}},{"winner":true}]})
+// $not 元条件句(可用在任何其他条件上),与正则结合使用,查找与特定模式不匹配的文档
+// 条件语句内层文档的键,修改器外层文档的键
+// 查询某个值是否为null用$exists
+db.jx3.find({"content.name":{"$in":[null],"$exists":true}})
+// 正则表达式,也可以匹配自身
+// i 不区分大小写
+// perlji兼容的正则
+// $all 通过多个元素来匹配数组
+db.jx3.find({"content.name":{$all:["叶雪风"]}})
+// key.index语法指定下标,数组从0开始
+db.jx3.find({"name.1":"圈圈"})
+// $size 查询特定长度的数组
+db.jx3.find({"content":{"$size":3}})
+// $slice 返回某个键匹配的数组元素子集 (下例只有叶雪风哪个号了)
+db.jx3.find({},{"content":{"$slice":1}})
+// $elemMatch 查询条件与每个元素进行比较,但不会匹配非数组元素
+db.jx3.find({"content":{"$elemMatch":{"name":"叶雪风","职业" : "藏剑"}}})
+// $maxscan 指定本次扫描文档数量上限
+// $min 指定一个索引的扫描的下边界
+// $max 指定一个索引的扫描的上边界
+// $showDiskLoc 显示该结果在磁盘上的位置
+// snapshot 对查询进行快照，保证每个文档只被遍历一次，但是速度会慢，故只在必要时使用
