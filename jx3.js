@@ -9,9 +9,7 @@ var jx3=db.jx3.find({"_id": ObjectId("5bd97080e13dd94858c415c7")})
 jx3.content=[{"name":"叶雪风","职业":"藏剑"},{"name":"小小琉璃","职业":"万花"},{"name":"悲莫悲生别离","职业":"蓬莱"}]
 db.jx3.update({"_id": ObjectId("5bd91415fac210459cee4ef6")},jx3)
 // 用push方式修改指定ObjectId的文档(新插入一个数据到content中)
-db.jx3.update({"_id": ObjectId("5bd91415fac210459cee4ef6")},
-{"$push":{"content":
-  {"name":"笛音不渡","职业":"五毒"}}})
+db.jx3.update({"_id":ObjectId("5c32c231663fc5da02e0bcd5")},{"$push":{"content":{"name":"笛音不渡","职业":"五毒"}}})
   // 插入多个内容到content中(each),最多插入10个文档(slice)
 db.jx3.update
 ({"_id": ObjectId("5bd928b706c731a4a068ebd5")},
